@@ -55,7 +55,7 @@ public class Themes {
                 if(themeXML.exists() && themeXML.isFile())
                 {
                     try {
-                        Theme t = new Theme(eachFolder.getAbsolutePath());
+                        Theme t = new Theme(eachFolder);
 
 
                         if (minThemeSupportPlatform.isBiggerThan(t.getThemePlatformVersion()))

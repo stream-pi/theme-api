@@ -31,18 +31,18 @@ public class Theme {
     private final XMLConfiguration config;
 
 
-    public Theme(String folderPath) throws MinorException {
-        path = new File(folderPath);
+    public Theme(File path) throws MinorException {
+        this.path = path;
 
         if(!path.isDirectory())
         {
-            throw new MinorException("Theme", "Theme path "+folderPath+" is not a folder.");
+            throw new MinorException("Theme", "Theme path "+path.getName()+" is not a folder.");
         }
 
-        File themeFile = new File(folderPath + "/theme.xml");
+        File themeFile = new File(path.getAbsolutePath() + "/theme.xml");
         if(!themeFile.isFile())
         {
-            throw new MinorException("Theme", "Theme folder "+folderPath+" has no theme.xml");
+            throw new MinorException("Theme", "Theme folder "+path.getName()+" has no theme.xml");
         }
 
 
@@ -53,7 +53,7 @@ public class Theme {
             config = builder.getConfiguration();
         } catch (ConfigurationException e) {
             e.printStackTrace();
-            throw new MinorException("Theme", "ConfigurationException occurred for theme folder "+folderPath);
+            throw new MinorException("Theme", "ConfigurationException occurred for theme folder "+path.getName());
         }
 
         loadUpThemeXMLContents();
