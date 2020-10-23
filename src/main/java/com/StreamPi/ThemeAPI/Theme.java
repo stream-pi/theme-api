@@ -21,12 +21,15 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class Theme {
 
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
+    private int serverIconSize, clientIconSize;
+    private String serverIconColorHex, clientIconColorHex;
     private final File path;
     private final XMLConfiguration config;
 
@@ -101,12 +104,50 @@ public class Theme {
         //theme
 
         //server
+
+        try
+        {
+            serverIconSize = config.getInt("theme.server.icon.size");
+        }
+        catch (NoSuchElementException e)
+        {
+            throw new MinorException("server.icon.size property missing from theme ("+fullName+")");
+        }
+
+        try
+        {
+            serverIconColorHex = config.getString("theme.server.icon.color");
+        }
+        catch (NoSuchElementException e)
+        {
+            throw new MinorException("server.icon.color property missing from theme ("+fullName+")");
+        }
+
         serverStylesheets = config.getList(String.class, "theme.server.stylesheets.stylesheet");
 
         serverFonts = config.getList(String.class, "theme.server.fonts.font");
 
 
         //client
+
+        try
+        {
+            clientIconSize = config.getInt("theme.client.icon.size");
+        }
+        catch (NoSuchElementException e)
+        {
+            throw new MinorException("client.icon.size property missing from theme ("+fullName+")");
+        }
+
+        try
+        {
+            clientIconColorHex = config.getString("theme.client.icon.color");
+        }
+        catch (NoSuchElementException e)
+        {
+            throw new MinorException("client.icon.color property missing from theme ("+fullName+")");
+        }
+
         clientStylesheets = config.getList(String.class, "theme.client.stylesheets.stylesheet");
 
 
@@ -197,5 +238,25 @@ public class Theme {
     public Version getVersion()
     {
         return version;
+    }
+
+    public int getServerIconSize()
+    {
+        return serverIconSize;
+    }
+
+    public int getClientIconSize()
+    {
+        return clientIconSize;
+    }
+
+    public String getServerIconColorHex()
+    {
+        return serverIconColorHex;
+    }
+
+    public String getClientIconColorHex()
+    {
+        return clientIconColorHex;
     }
 }
