@@ -28,8 +28,8 @@ public class Theme {
 
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
-    private int serverIconSize, clientIconSize;
-    private String serverIconColorHex, clientIconColorHex;
+    private int iconSize;
+    private String iconColorHex;
     private final File path;
     private final XMLConfiguration config;
 
@@ -62,11 +62,8 @@ public class Theme {
         loadUpThemeXMLContents();
     }
 
-    private List<String> serverStylesheets;
-    private List<String> serverFonts;
-
-    private List<String> clientStylesheets;
-    private List<String> clientFonts;
+    private List<String> stylesheets;
+    private List<String> fonts;
 
     public Version getThemePlatformVersion()
     {
@@ -103,116 +100,56 @@ public class Theme {
 
         //theme
 
-        //server
-
         try
         {
-            serverIconSize = config.getInt("theme.server.icon.size");
+            iconSize = config.getInt("theme.icon.size");
         }
         catch (NoSuchElementException e)
         {
-            throw new MinorException("server.icon.size property missing from theme ("+fullName+")");
-        }
-
-        try
-        {
-            serverIconColorHex = config.getString("theme.server.icon.color");
-        }
-        catch (NoSuchElementException e)
-        {
-            throw new MinorException("server.icon.color property missing from theme ("+fullName+")");
-        }
-
-        serverStylesheets = config.getList(String.class, "theme.server.stylesheets.stylesheet");
-
-        serverFonts = config.getList(String.class, "theme.server.fonts.font");
-
-
-        //client
-
-        try
-        {
-            clientIconSize = config.getInt("theme.client.icon.size");
-        }
-        catch (NoSuchElementException e)
-        {
-            throw new MinorException("client.icon.size property missing from theme ("+fullName+")");
+            throw new MinorException("theme.icon.size property missing from theme ("+fullName+")");
         }
 
         try
         {
-            clientIconColorHex = config.getString("theme.client.icon.color");
+            iconColorHex = config.getString("theme.icon.color");
         }
         catch (NoSuchElementException e)
         {
-            throw new MinorException("client.icon.color property missing from theme ("+fullName+")");
+            throw new MinorException("theme.icon.color property missing from theme ("+fullName+")");
         }
 
-        clientStylesheets = config.getList(String.class, "theme.client.stylesheets.stylesheet");
+        stylesheets = config.getList(String.class, "theme.stylesheets.stylesheet");
+
+        fonts = config.getList(String.class, "theme.fonts.font");
 
 
-        clientFonts = config.getList(String.class, "theme.client.fonts.font");
-
-
-        if(serverStylesheets == null && clientStylesheets == null)
+        if(stylesheets == null)
         {
             throw new MinorException("No stylesheets found. At least one required. ("+fullName+")");
         }
 
-        if(serverStylesheets != null)
+        for (int i=0;i<stylesheets.size(); i++)
         {
-            for (int i=0;i<serverStylesheets.size(); i++)
-            {
-                serverStylesheets.set(i, Paths.get(path.getAbsolutePath() + "/" + serverStylesheets.get(i)).toUri().toString());
-            }
+            stylesheets.set(i, Paths.get(path.getAbsolutePath() + "/" + stylesheets.get(i)).toUri().toString());
         }
 
-
-        if(serverFonts!=null)
+        if(fonts!=null)
         {
-            for (int i=0;i<serverFonts.size(); i++)
+            for (int i=0;i<fonts.size(); i++)
             {
-                serverFonts.set(i, Paths.get( path.getAbsolutePath() + "/" + serverFonts.get(i)).toUri().toString());
-            }
-        }
-
-
-        if(clientStylesheets!=null)
-        {
-            for (int i=0;i<clientStylesheets.size(); i++)
-            {
-                clientStylesheets.set(i, Paths.get(path.getAbsolutePath() + "/" + clientStylesheets.get(i)).toUri().toString());
-            }
-        }
-
-
-        if(clientFonts!=null)
-        {
-            for (int i=0;i<clientFonts.size(); i++)
-            {
-                clientFonts.set(i, Paths.get(path.getAbsolutePath() + "/" + clientFonts.get(i)).toUri().toString());
+                fonts.set(i, Paths.get( path.getAbsolutePath() + "/" + fonts.get(i)).toUri().toString());
             }
         }
     }
 
-    public List<String> getSeverStylesheets()
+    public List<String> getStylesheets()
     {
-        return serverStylesheets;
+        return stylesheets;
     }
 
-    public List<String> getServerFonts()
+    public List<String> getFonts()
     {
-        return serverFonts;
-    }
-
-    public List<String> getClientStylesheets()
-    {
-        return serverStylesheets;
-    }
-
-    public List<String> getClientFonts()
-    {
-        return serverFonts;
+        return fonts;
     }
 
     public String getFullName()
@@ -240,23 +177,13 @@ public class Theme {
         return version;
     }
 
-    public int getServerIconSize()
+    public int getIconSize()
     {
-        return serverIconSize;
+        return iconSize;
     }
 
-    public int getClientIconSize()
+    public String getIconColorHex()
     {
-        return clientIconSize;
-    }
-
-    public String getServerIconColorHex()
-    {
-        return serverIconColorHex;
-    }
-
-    public String getClientIconColorHex()
-    {
-        return clientIconColorHex;
+        return iconColorHex;
     }
 }
