@@ -4,8 +4,8 @@ package com.StreamPi.ThemeAPI;
 import com.StreamPi.Util.Exception.MinorException;
 import com.StreamPi.Util.Exception.SevereException;
 import com.StreamPi.Util.Version.Version;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Themes {
     private final ArrayList<MinorException> errors;
     private boolean isBadThemeTheCurrentOne = false;
 
-    Logger logger = LoggerFactory.getLogger(Themes.class);
+    Logger logger = LogManager.getLogger(Themes.class);
 
     private String themePath;
     private String defaultThemeName;

@@ -16,14 +16,21 @@
         <CommonsBeanUtilsVersion>1.9.4</CommonsBeanUtilsVersion>
         <CommonsConfigurationVersion>2.7</CommonsConfigurationVersion>
 
-        <SL4JVersion>1.7.30</SL4JVersion>
 
         <UtilVersion>1.0.0</UtilVersion>
+
+        <Log4JVersion>2.14.0</Log4JVersion>
 
 
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${Log4JVersion}</version>
+        </dependency>
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -34,18 +41,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
             <version>${CommonsConfigurationVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${SL4JVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${SL4JVersion}</version>
         </dependency>
 
         <dependency>

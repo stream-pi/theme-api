@@ -1,5 +1,5 @@
 module com.StreamPi.ThemeAPI {
-    requires org.slf4j;
+    requires org.apache.logging.log4j;
     requires org.apache.commons.configuration2;
 
     requires com.StreamPi.Util;
