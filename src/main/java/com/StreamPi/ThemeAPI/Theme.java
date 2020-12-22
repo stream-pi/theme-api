@@ -28,8 +28,6 @@ public class Theme {
 
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
-    private int iconSize;
-    private String iconColorHex;
     private final File path;
     private final XMLConfiguration config;
 
@@ -100,24 +98,6 @@ public class Theme {
 
         //theme
 
-        try
-        {
-            iconSize = config.getInt("theme.icon.size");
-        }
-        catch (NoSuchElementException e)
-        {
-            throw new MinorException("theme.icon.size property missing from theme ("+fullName+")");
-        }
-
-        try
-        {
-            iconColorHex = config.getString("theme.icon.color");
-        }
-        catch (NoSuchElementException e)
-        {
-            throw new MinorException("theme.icon.color property missing from theme ("+fullName+")");
-        }
-
         stylesheets = config.getList(String.class, "theme.stylesheets.stylesheet");
 
         fonts = config.getList(String.class, "theme.fonts.font");
@@ -175,15 +155,5 @@ public class Theme {
     public Version getVersion()
     {
         return version;
-    }
-
-    public int getIconSize()
-    {
-        return iconSize;
-    }
-
-    public String getIconColorHex()
-    {
-        return iconColorHex;
     }
 }

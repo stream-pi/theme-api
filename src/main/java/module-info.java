@@ -1,7 +1,7 @@
 module com.StreamPi.ThemeAPI {
-    requires org.apache.logging.log4j;
-    requires org.apache.commons.configuration2;
+    requires transitive org.apache.logging.log4j;
+    requires transitive org.apache.commons.configuration2;
 
-    requires com.StreamPi.Util;
+    requires transitive com.StreamPi.Util;
     exports com.StreamPi.ThemeAPI;
 }
