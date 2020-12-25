@@ -34,10 +34,8 @@ public class Theme {
     private Version version, themePlatformVersion;
     private final File path;
     private Document document;
-    private final XMLConfigHelper xmlConfigHelper;
 
     public Theme(File path) throws MinorException {
-        xmlConfigHelper = new XMLConfigHelper();
         this.path = path;
 
         if(!path.isDirectory())
@@ -89,13 +87,13 @@ public class Theme {
 
         Element infoElement = (Element) document.getElementsByTagName("info").item(0);
 
-        shortName = xmlConfigHelper.getStringProperty(infoElement, "short-name", "Unknown", false);
-        author = xmlConfigHelper.getStringProperty(infoElement, "author", "Unknown", false);
-        website = xmlConfigHelper.getStringProperty(infoElement, "website", "Unknown", false);
+        shortName = XMLConfigHelper.getStringProperty(infoElement, "short-name", "Unknown", false);
+        author = XMLConfigHelper.getStringProperty(infoElement, "author", "Unknown", false);
+        website = XMLConfigHelper.getStringProperty(infoElement, "website", "Unknown", false);
 
         try
         {
-            version = new Version(xmlConfigHelper.getStringProperty(infoElement, "version"));
+            version = new Version(XMLConfigHelper.getStringProperty(infoElement, "version"));
         }
         catch (Exception e)
         {
@@ -104,12 +102,12 @@ public class Theme {
 
         //theme
 
-        if(xmlConfigHelper.doesElementExist(document, "theme"))
+        if(XMLConfigHelper.doesElementExist(document, "theme"))
         {
             //Stylesheets
             Element themeElement = (Element) document.getElementsByTagName("theme").item(0);
 
-            if(xmlConfigHelper.doesElementExist(themeElement, "stylesheets"))
+            if(XMLConfigHelper.doesElementExist(themeElement, "stylesheets"))
             {
                 Element stylesheetsElement = (Element) themeElement.getElementsByTagName("stylesheets").item(0);
 
@@ -136,7 +134,7 @@ public class Theme {
                 }
             }
 
-            if(xmlConfigHelper.doesElementExist(themeElement, "fonts"))
+            if(XMLConfigHelper.doesElementExist(themeElement, "fonts"))
             {
                 Element fontsElement = (Element) themeElement.getElementsByTagName("fonts").item(0);
 
