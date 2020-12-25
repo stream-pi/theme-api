@@ -13,9 +13,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <CommonsBeanUtilsVersion>1.9.4</CommonsBeanUtilsVersion>
-        <CommonsConfigurationVersion>2.7</CommonsConfigurationVersion>
-
 
         <UtilVersion>1.0.0</UtilVersion>
 
@@ -29,18 +26,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${Log4JVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>${CommonsBeanUtilsVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-configuration2</artifactId>
-            <version>${CommonsConfigurationVersion}</version>
         </dependency>
 
         <dependency>

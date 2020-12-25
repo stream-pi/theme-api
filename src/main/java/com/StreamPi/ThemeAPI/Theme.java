@@ -7,21 +7,25 @@ Check 'Theme Standard.md' if you want to understand the hierarchy.
 This reads a theme folder.
  */
 
-
 package com.StreamPi.ThemeAPI;
-
 
 import com.StreamPi.Util.Exception.MinorException;
 import com.StreamPi.Util.Version.Version;
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
+import com.StreamPi.Util.XMLConfigHelper.XMLConfigHelper;
+
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 public class Theme {
@@ -29,10 +33,11 @@ public class Theme {
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
     private final File path;
-    private final XMLConfiguration config;
-
+    private Document document;
+    private final XMLConfigHelper xmlConfigHelper;
 
     public Theme(File path) throws MinorException {
+        xmlConfigHelper = new XMLConfigHelper();
         this.path = path;
 
         if(!path.isDirectory())
@@ -47,12 +52,12 @@ public class Theme {
         }
 
 
-        Configurations configs = new Configurations();
-        FileBasedConfigurationBuilder<XMLConfiguration> builder = configs.xmlBuilder(themeFile);
-
         try {
-            config = builder.getConfiguration();
-        } catch (ConfigurationException e) {
+            
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            document = dBuilder.parse(themeFile);
+        } catch (Exception e) {
             e.printStackTrace();
             throw new MinorException("Theme", "ConfigurationException occurred for theme folder "+path.getName());
         }
@@ -60,14 +65,13 @@ public class Theme {
         loadUpThemeXMLContents();
     }
 
-    private List<String> stylesheets;
-    private List<String> fonts;
+    private List<String> stylesheets = null;
+    private List<String> fonts = null;
 
     public Version getThemePlatformVersion()
     {
         return themePlatformVersion;
     }
-
 
     private void loadUpThemeXMLContents() throws MinorException
     {
@@ -76,31 +80,89 @@ public class Theme {
 
         try
         {
-            themePlatformVersion = new Version(config.getString("theme-platform-version"));
+            themePlatformVersion = new Version(document.getElementsByTagName("theme-platform-version").item(0).getTextContent());
         }
-        catch (MinorException e)
+        catch (Exception e)
         {
             throw new MinorException("Invalid theme-platform-version ("+fullName+")");
         }
 
-        shortName = config.getString("info.short-name", "Unknown");
-        author = config.getString("info.author", "Unknown");
-        website = config.getString("info.website", "Unknown");
+        Element infoElement = (Element) document.getElementsByTagName("info").item(0);
+
+        shortName = xmlConfigHelper.getStringProperty(infoElement, "short-name", "Unknown", false);
+        author = xmlConfigHelper.getStringProperty(infoElement, "author", "Unknown", false);
+        website = xmlConfigHelper.getStringProperty(infoElement, "website", "Unknown", false);
 
         try
         {
-            version = new Version(config.getString("info.version"));
+            version = new Version(xmlConfigHelper.getStringProperty(infoElement, "version"));
         }
-        catch (MinorException e)
+        catch (Exception e)
         {
             throw new MinorException("Invalid theme-version ("+fullName+")");
         }
 
         //theme
 
-        stylesheets = config.getList(String.class, "theme.stylesheets.stylesheet");
+        if(xmlConfigHelper.doesElementExist(document, "theme"))
+        {
+            //Stylesheets
+            Element themeElement = (Element) document.getElementsByTagName("theme").item(0);
 
-        fonts = config.getList(String.class, "theme.fonts.font");
+            if(xmlConfigHelper.doesElementExist(themeElement, "stylesheets"))
+            {
+                Element stylesheetsElement = (Element) themeElement.getElementsByTagName("stylesheets").item(0);
+
+                
+                NodeList ss = stylesheetsElement.getChildNodes();
+                if(ss.getLength() > 0)
+                {
+                    stylesheets = new ArrayList<>();
+
+                    for(int i = 0;i<ss.getLength();i++)
+                    {
+                        Node n = ss.item(i);
+                        if(n.getNodeType() != Node.ELEMENT_NODE)
+                            continue;
+
+                        if(n.getNodeName() != "stylesheet")
+                            continue;
+
+                        Element stylesheetElement = (Element) n;
+
+                        stylesheets.add(stylesheetElement.getTextContent());
+                    }
+                    
+                }
+            }
+
+            if(xmlConfigHelper.doesElementExist(themeElement, "fonts"))
+            {
+                Element fontsElement = (Element) themeElement.getElementsByTagName("fonts").item(0);
+
+                
+                NodeList ss = fontsElement.getChildNodes();
+                if(ss.getLength() > 0)
+                {
+                    fonts = new ArrayList<>();
+
+                    for(int i = 0;i<ss.getLength();i++)
+                    {
+                        Node n = ss.item(i);
+                        if(n.getNodeType() != Node.ELEMENT_NODE)
+                            continue;
+
+                        if(n.getNodeName() != "font")
+                            continue;
+
+                        Element fontElement = (Element) n;
+
+                        fonts.add(fontElement.getTextContent());
+                    }
+                    
+                }
+            }
+        }
 
 
         if(stylesheets == null)
