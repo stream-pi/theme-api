@@ -1,22 +1,20 @@
 package com.StreamPi.ThemeAPI;
 
-
 import com.StreamPi.Util.Exception.MinorException;
 import com.StreamPi.Util.Exception.SevereException;
 import com.StreamPi.Util.Version.Version;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Themes {
     private final List<Theme> themeList;
     private final ArrayList<MinorException> errors;
     private boolean isBadThemeTheCurrentOne = false;
 
-    Logger logger = LogManager.getLogger(Themes.class);
+    Logger logger = Logger.getLogger(Themes.class.getName());
 
     private String themePath;
     private String defaultThemeName;
@@ -66,7 +64,7 @@ public class Themes {
                         themeList.add(t);
                         logger.info("Added "+eachFolder.getName()+" to themes");
                     } catch (MinorException e) {
-                        logger.error("Error adding "+eachFolder.getName()+" to themes");
+                        logger.severe("Error adding "+eachFolder.getName()+" to themes");
 
                         if(eachFolder.getName().equals(defaultThemeName))
                             setBadThemeCurrentOne();
