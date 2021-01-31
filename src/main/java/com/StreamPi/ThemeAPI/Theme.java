@@ -89,7 +89,7 @@ public class Theme {
 
         shortName = XMLConfigHelper.getStringProperty(infoElement, "short-name", "Unknown", false);
         author = XMLConfigHelper.getStringProperty(infoElement, "author", "Unknown", false);
-        website = XMLConfigHelper.getStringProperty(infoElement, "website", "Unknown", false);
+        website = XMLConfigHelper.getStringProperty(infoElement, "website", null, false);
 
         try
         {
