@@ -1,7 +1,7 @@
-module com.StreamPi.ThemeAPI {
+module com.stream_pi.themeapi {
     requires transitive java.logging;
     requires transitive java.xml;
 
-    requires transitive com.StreamPi.Util;
-    exports com.StreamPi.ThemeAPI;
+    requires transitive com.stream_pi.util;
+    exports com.stream_pi.themeapi;
 }
