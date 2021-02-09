@@ -7,7 +7,7 @@ Check 'Theme Standard.md' if you want to understand the hierarchy.
 This reads a theme folder.
  */
 
-package com.stream_pi.themeapi;
+package com.stream_pi.theme_api;
 
 
 import com.stream_pi.util.exception.MinorException;

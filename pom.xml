@@ -4,27 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.stream_pi</groupId>
-    <artifactId>themeapi</artifactId>
-    <version>1.0.0</version>
+    <groupId>com.stream-pi</groupId>
+    <artifactId>theme-api</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release>
 
-
-        <UtilVersion>1.0.0</UtilVersion>
-
-
+        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
     </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.stream_pi</groupId>
+            <groupId>com.stream-pi</groupId>
             <artifactId>util</artifactId>
-            <version>1.0.0</version>
+            <version>${UtilVersion}</version>
         </dependency>
     </dependencies>
 
