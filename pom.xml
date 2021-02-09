@@ -11,8 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
-
-        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
+        <util.version>1.0.0-SNAPSHOT</util.version>
     </properties>
 
     <dependencies>
@@ -20,7 +19,7 @@
         <dependency>
             <groupId>com.stream-pi</groupId>
             <artifactId>util</artifactId>
-            <version>${UtilVersion}</version>
+            <version>${util.version}</version>
         </dependency>
     </dependencies>
 
