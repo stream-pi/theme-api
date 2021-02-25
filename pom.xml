@@ -121,7 +121,7 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/Stream-Pi/util/issues</url>
+        <url>https://github.com/Stream-Pi/themeapi/issues</url>
     </issueManagement>
 
     <licenses>
@@ -148,9 +148,9 @@
     </developers>
 
     <scm>
-        <url>https://github.com/stream-pi/util</url>
-        <connection>scm:git:git://github.com/stream-pi/util.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:stream-pi/util.git</developerConnection>
+        <url>https://github.com/stream-pi/themeapi</url>
+        <connection>scm:git:git://github.com/stream-pi/themeapi.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:stream-pi/themeapi.git</developerConnection>
     </scm>
 
     <distributionManagement>
