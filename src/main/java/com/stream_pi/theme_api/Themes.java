@@ -21,6 +21,8 @@ public class Themes {
     private String defaultThemeName;
     private Version minThemeSupportPlatform;
 
+    private boolean isDefaultThemePresent = false;
+
     public Themes(String themePath, String defaultThemeName, Version minThemeSupportPlatform) throws SevereException {
         this.themePath = themePath;
         this.defaultThemeName = defaultThemeName;
@@ -30,6 +32,11 @@ public class Themes {
         errors = new ArrayList<>();
 
         loadThemes();
+    }
+
+    public boolean isDefaultThemePresent()
+    {
+        return isDefaultThemePresent;
     }
 
     public void loadThemes() throws SevereException {
@@ -61,6 +68,15 @@ public class Themes {
                         {
                             throw new MinorException("Theme version doesn't match minimum theme support level ("+ minThemeSupportPlatform + ") ("+t.getFullName()+")");
                         }
+
+                        if(!isDefaultThemePresent())
+                        {
+                            if(t.getFullName().equals(defaultThemeName))
+                            {
+                                isDefaultThemePresent = true;
+                            }
+                        }
+
 
                         themeList.add(t);
                         logger.info("Added "+eachFolder.getName()+" to themes");
