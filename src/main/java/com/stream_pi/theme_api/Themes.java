@@ -7,6 +7,7 @@ import com.stream_pi.util.version.Version;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,20 +19,25 @@ public class Themes {
     Logger logger = Logger.getLogger(Themes.class.getName());
 
     private String themePath;
+    private String defaultThemePath;
     private String defaultThemeName;
     private Version minThemeSupportPlatform;
 
     private boolean isDefaultThemePresent = false;
 
-    public Themes(String themePath, String defaultThemeName, Version minThemeSupportPlatform) throws SevereException {
+    public Themes(String defaultThemePath, String themePath, String defaultThemeName, Version minThemeSupportPlatform) throws SevereException {
         this.themePath = themePath;
+        this.defaultThemePath = defaultThemePath;
         this.defaultThemeName = defaultThemeName;
         this.minThemeSupportPlatform = minThemeSupportPlatform;
 
         themeList = new ArrayList<>();
         errors = new ArrayList<>();
 
-        loadThemes();
+        shortDir = new ArrayList();
+        loadThemes(defaultThemePath);
+        loadThemes(themePath);
+        shortDir = null;
     }
 
     public boolean isDefaultThemePresent()
@@ -39,7 +45,10 @@ public class Themes {
         return isDefaultThemePresent;
     }
 
-    public void loadThemes() throws SevereException {
+    private ArrayList<String> shortDir = null;
+
+    public void loadThemes(String themePath) throws SevereException
+    {
         File themeFolder =  new File(themePath);
         if(!themeFolder.isDirectory())
         {
@@ -63,7 +72,6 @@ public class Themes {
                     try {
                         Theme t = new Theme(eachFolder);
 
-
                         if (minThemeSupportPlatform.isBiggerThan(t.getThemePlatformVersion()))
                         {
                             throw new MinorException("Theme version doesn't match minimum theme support level ("+ minThemeSupportPlatform + ") ("+t.getFullName()+")");
@@ -78,9 +86,21 @@ public class Themes {
                         }
 
 
-                        themeList.add(t);
-                        logger.info("Added "+eachFolder.getName()+" to themes");
-                    } catch (MinorException e) {
+                        if(!shortDir.contains(t.getFullName()))
+                        {
+                            shortDir.add(t.getFullName());
+
+                            themeList.add(t);
+                                
+                            logger.info("Added "+eachFolder.getName()+" to themes!");
+                        }
+                        else
+                        {
+                            logger.info("Skipping "+eachFolder.getName()+" because already added!");
+                        }
+                    } 
+                    catch (MinorException e)
+                    {
                         logger.severe("Error adding "+eachFolder.getName()+" to themes");
 
                         if(eachFolder.getName().equals(defaultThemeName))
@@ -110,11 +130,7 @@ public class Themes {
         return errors;
     }
 
-    public void refreshThemeList() throws SevereException {
-        logger.info("Refreshing themes ...");
-        loadThemes();
-        logger.info("... Done!");
-    }
+  
 
     public List<Theme> getThemeList()
     {
