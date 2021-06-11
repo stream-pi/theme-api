@@ -27,7 +27,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 
-public class Theme {
+public class Theme
+{
 
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
@@ -84,7 +85,7 @@ public class Theme {
             throw new MinorException("Invalid theme-platform-version ("+fullName+")");
         }
 
-        Element infoElement = (Element) document.getElementsByTagName("info").item(0);
+        Node infoElement = document.getElementsByTagName("info").item(0);
 
         shortName = XMLConfigHelper.getStringProperty(infoElement, "short-name", "Unknown", false);
         author = XMLConfigHelper.getStringProperty(infoElement, "author", "Unknown", false);

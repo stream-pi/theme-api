@@ -36,7 +36,10 @@ public class Themes {
 
         shortDir = new ArrayList();
         loadThemes(defaultThemePath);
-        loadThemes(themePath);
+
+        if(!themePath.equals(defaultThemeName))
+            loadThemes(themePath);
+
         shortDir = null;
     }
 
@@ -69,7 +72,8 @@ public class Themes {
                 File themeXML = new File(eachFolder.getAbsolutePath()+"/theme.xml");
                 if(themeXML.exists() && themeXML.isFile())
                 {
-                    try {
+                    try
+                    {
                         Theme t = new Theme(eachFolder);
 
                         if (minThemeSupportPlatform.isBiggerThan(t.getThemePlatformVersion()))
