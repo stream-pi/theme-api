@@ -37,7 +37,7 @@ public class Themes {
         shortDir = new ArrayList();
         loadThemes(defaultThemePath);
 
-        if(!themePath.equals(defaultThemeName))
+        if(!themePath.equals(defaultThemePath))
             loadThemes(themePath);
 
         shortDir = null;
