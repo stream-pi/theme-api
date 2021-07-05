@@ -1,7 +1,7 @@
 /*
 Theme.java
 
-Contributor(s): Debayan Sutradhar (@dubbadhar)
+Contributor(s): Debayan Sutradhar (@rnayabed)
 
 Check 'Theme Standard.md' if you want to understand the hierarchy.
 This reads a theme folder.
@@ -50,12 +50,14 @@ public class Theme
         }
 
 
-        try {
-            
+        try 
+        {    
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             document = dBuilder.parse(themeFile);
-        } catch (Exception e) {
+        }
+        catch (Exception e) 
+        {
             e.printStackTrace();
             throw new MinorException("Theme", "ConfigurationException occurred for theme folder "+path.getName());
         }
