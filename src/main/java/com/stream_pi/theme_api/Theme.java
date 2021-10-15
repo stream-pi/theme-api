@@ -66,7 +66,6 @@ public class Theme
     }
 
     private List<String> stylesheets = null;
-    private List<String> fonts = null;
 
     public Version getThemePlatformVersion()
     {
@@ -125,39 +124,12 @@ public class Theme
                         if(n.getNodeType() != Node.ELEMENT_NODE)
                             continue;
 
-                        if(n.getNodeName() != "stylesheet")
+                        if(!n.getNodeName().equals("stylesheet"))
                             continue;
 
                         Element stylesheetElement = (Element) n;
 
                         stylesheets.add(stylesheetElement.getTextContent());
-                    }
-                    
-                }
-            }
-
-            if(XMLConfigHelper.doesElementExist(themeElement, "fonts"))
-            {
-                Element fontsElement = (Element) themeElement.getElementsByTagName("fonts").item(0);
-
-                
-                NodeList ss = fontsElement.getChildNodes();
-                if(ss.getLength() > 0)
-                {
-                    fonts = new ArrayList<>();
-
-                    for(int i = 0;i<ss.getLength();i++)
-                    {
-                        Node n = ss.item(i);
-                        if(n.getNodeType() != Node.ELEMENT_NODE)
-                            continue;
-
-                        if(n.getNodeName() != "font")
-                            continue;
-
-                        Element fontElement = (Element) n;
-
-                        fonts.add(fontElement.getTextContent());
                     }
                     
                 }
@@ -174,24 +146,11 @@ public class Theme
         {
             stylesheets.set(i, Paths.get(path.getAbsolutePath() + "/" + stylesheets.get(i)).toUri().toString());
         }
-
-        if(fonts!=null)
-        {
-            for (int i=0;i<fonts.size(); i++)
-            {
-                fonts.set(i, Paths.get( path.getAbsolutePath() + "/" + fonts.get(i)).toUri().toString());
-            }
-        }
     }
 
     public List<String> getStylesheets()
     {
         return stylesheets;
-    }
-
-    public List<String> getFonts()
-    {
-        return fonts;
     }
 
     public String getFullName()
