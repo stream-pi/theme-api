@@ -22,15 +22,14 @@ public class Themes {
     private String themePath;
     private String defaultThemePath;
     private String defaultThemeName;
-    private Version minThemeSupportPlatform;
 
     private boolean isDefaultThemePresent = false;
 
-    public Themes(String defaultThemePath, String themePath, String defaultThemeName, Version minThemeSupportPlatform) throws SevereException {
+    public Themes(String defaultThemePath, String themePath, String defaultThemeName) throws SevereException
+    {
         this.themePath = themePath;
         this.defaultThemePath = defaultThemePath;
         this.defaultThemeName = defaultThemeName;
-        this.minThemeSupportPlatform = minThemeSupportPlatform;
 
         themeList = new ArrayList<>();
         errors = new ArrayList<>();
@@ -77,9 +76,9 @@ public class Themes {
                     {
                         Theme t = new Theme(eachFolder);
 
-                        if (minThemeSupportPlatform.isBiggerThan(t.getThemePlatformVersion()))
+                        if (ThemeAPI.MIN_VERSION_SUPPORTED.isBiggerThan(t.getThemePlatformVersion()))
                         {
-                            throw new MinorException(I18N.getString("Themes.unsupportedTheme", t.getFullName(), minThemeSupportPlatform));
+                            throw new MinorException(I18N.getString("Themes.unsupportedTheme", t.getFullName(), ThemeAPI.MIN_VERSION_SUPPORTED.getText()));
                         }
 
                         if(!isDefaultThemePresent())
