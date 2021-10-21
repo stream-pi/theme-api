@@ -10,6 +10,7 @@ This reads a theme folder.
 package com.stream_pi.theme_api;
 
 
+import com.stream_pi.theme_api.i18n.I18N;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 import com.stream_pi.util.xmlconfighelper.XMLConfigHelper;
@@ -29,24 +30,24 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Theme
 {
-
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
     private final File path;
     private Document document;
 
-    public Theme(File path) throws MinorException {
+    public Theme(File path) throws MinorException
+    {
         this.path = path;
 
         if(!path.isDirectory())
         {
-            throw new MinorException("Theme", "Theme path "+path.getName()+" is not a folder.");
+            throw new MinorException(I18N.getString("Theme.themePathIsNotAFolder", path.getAbsolutePath()));
         }
 
         File themeFile = new File(path.getAbsolutePath() + "/theme.xml");
         if(!themeFile.isFile())
         {
-            throw new MinorException("Theme", "Theme folder "+path.getName()+" has no theme.xml");
+            throw new MinorException(I18N.getString("Theme.themeFolderHasNoThemeXML", path.getAbsolutePath()));
         }
 
 
@@ -59,7 +60,7 @@ public class Theme
         catch (Exception e) 
         {
             e.printStackTrace();
-            throw new MinorException("Theme", "ConfigurationException occurred for theme folder "+path.getName());
+            throw new MinorException(I18N.getString("Theme.themeXMLParseFailed", path.getAbsolutePath()));
         }
 
         loadUpThemeXMLContents();
@@ -83,7 +84,7 @@ public class Theme
         }
         catch (Exception e)
         {
-            throw new MinorException("Invalid theme-platform-version ("+fullName+")");
+            throw new MinorException(I18N.getString("Theme.invalidThemePlatformVersion", path.getAbsolutePath()));
         }
 
         Node infoElement = document.getElementsByTagName("info").item(0);
@@ -98,7 +99,7 @@ public class Theme
         }
         catch (Exception e)
         {
-            throw new MinorException("Invalid theme-version ("+fullName+")");
+            throw new MinorException(I18N.getString("Theme.invalidVersion", path.getAbsolutePath()));
         }
 
         //theme
@@ -139,7 +140,7 @@ public class Theme
 
         if(stylesheets == null)
         {
-            throw new MinorException("No stylesheets found. At least one required. ("+fullName+")");
+            throw new MinorException(I18N.getString("Theme.noStyleSheetsFound", path.getAbsolutePath()));
         }
 
         for (int i=0;i<stylesheets.size(); i++)

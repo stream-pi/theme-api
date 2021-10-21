@@ -1,6 +1,7 @@
 package com.stream_pi.theme_api;
 
 
+import com.stream_pi.theme_api.i18n.I18N;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.exception.SevereException;
 import com.stream_pi.util.version.Version;
@@ -55,14 +56,14 @@ public class Themes {
         File themeFolder =  new File(themePath);
         if(!themeFolder.isDirectory())
         {
-            throw new SevereException("Themes","Theme folder doesn't exist! Cant continue.");
+            throw new SevereException(I18N.getString("Themes.themeFolderNotADirectoryOrDoesNotExist"));
         }
 
 
         File[] themeFolders = themeFolder.listFiles();
         if(themeFolders == null)
         {
-            throw new SevereException("Themes","themefolders returned null. Cant continue!");
+            throw new SevereException(I18N.getString("Themes.themeFoldersIsNull"));
         }
 
         for(File eachFolder : themeFolders)
@@ -78,7 +79,7 @@ public class Themes {
 
                         if (minThemeSupportPlatform.isBiggerThan(t.getThemePlatformVersion()))
                         {
-                            throw new MinorException("Theme version doesn't match minimum theme support level ("+ minThemeSupportPlatform + ") ("+t.getFullName()+")");
+                            throw new MinorException(I18N.getString("Themes.unsupportedTheme", t.getFullName(), minThemeSupportPlatform));
                         }
 
                         if(!isDefaultThemePresent())
