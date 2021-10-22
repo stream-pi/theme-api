@@ -55,14 +55,14 @@ public class Themes {
         File themeFolder =  new File(themePath);
         if(!themeFolder.isDirectory())
         {
-            throw new SevereException(I18N.getString("Themes.themeFolderNotADirectoryOrDoesNotExist"));
+            throw new SevereException(I18N.getString("Themes.themeFolderNotADirectoryOrDoesNotExist", themeFolder.getAbsolutePath()));
         }
 
 
         File[] themeFolders = themeFolder.listFiles();
         if(themeFolders == null)
         {
-            throw new SevereException(I18N.getString("Themes.themeFoldersIsNull"));
+            throw new SevereException(I18N.getString("Themes.themeFoldersIsNull", themeFolder.getAbsolutePath()));
         }
 
         for(File eachFolder : themeFolders)
