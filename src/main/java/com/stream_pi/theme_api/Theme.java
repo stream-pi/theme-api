@@ -60,7 +60,7 @@ public class Theme
         catch (Exception e) 
         {
             e.printStackTrace();
-            throw new MinorException(I18N.getString("Theme.themeXMLParseFailed", path.getAbsolutePath()));
+            throw new MinorException(I18N.getString("Theme.themeXMLParseFailed", themeFile.getAbsolutePath()));
         }
 
         loadUpThemeXMLContents();
