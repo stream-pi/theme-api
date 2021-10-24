@@ -4,6 +4,8 @@
 
 API for building custom themes for the Stream-Pi.
 
+[Help us Translate!](https://github.com/stream-pi/theme-api/blob/master/i18n.md)
+
 ## Prerequisites
 
 - Java >= 11
