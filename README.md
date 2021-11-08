@@ -5,7 +5,7 @@
 
 *Free, Open-Source, Modular, Cross-Platform and Programmable Macro Pad*
 
-API for building custom themes for the Stream-Pi.
+API for building custom themes for the Stream-Pi
 
 ![version](https://img.shields.io/badge/Version-1.0.0--SNAPSHOT-green)
 
