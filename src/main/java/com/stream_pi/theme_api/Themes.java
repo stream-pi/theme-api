@@ -83,7 +83,7 @@ public class Themes {
         {
             if(eachFolder.isDirectory())
             {
-                File themeXML = new File(eachFolder.getAbsolutePath()+"/theme.xml");
+                File themeXML = new File(eachFolder.getAbsolutePath() + File.separator + "theme.xml");
                 if(themeXML.exists() && themeXML.isFile())
                 {
                     try

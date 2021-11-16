@@ -159,7 +159,7 @@ public class Theme
 
         for (int i=0;i<stylesheets.size(); i++)
         {
-            stylesheets.set(i, Paths.get(path.getAbsolutePath() + "/" + stylesheets.get(i)).toUri().toString());
+            stylesheets.set(i, Paths.get(path.getAbsolutePath() + File.separator + stylesheets.get(i)).toUri().toString());
         }
     }
 
