@@ -12,17 +12,7 @@
  * GNU General Public License for more details.
  */
 
-/*
-Theme.java
-
-Contributor(s): Debayan Sutradhar (@rnayabed)
-
-Check 'Theme Standard.md' if you want to understand the hierarchy.
-This reads a theme folder.
- */
-
 package com.stream_pi.theme_api;
-
 
 import com.stream_pi.theme_api.i18n.I18N;
 import com.stream_pi.util.exception.MinorException;
@@ -40,7 +30,6 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 
 public class Theme
 {
