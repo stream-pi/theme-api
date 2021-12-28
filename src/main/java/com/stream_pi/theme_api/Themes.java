@@ -90,9 +90,9 @@ public class Themes {
                     {
                         Theme t = new Theme(eachFolder);
 
-                        if (ThemeAPI.MIN_VERSION_SUPPORTED.isBiggerThan(t.getThemePlatformVersion()))
+                        if (ThemeAPI.VERSION.getMajor() != t.getThemePlatformVersion().getMajor())
                         {
-                            throw new MinorException(I18N.getString("Themes.unsupportedTheme", t.getFullName(), ThemeAPI.MIN_VERSION_SUPPORTED.getText()));
+                            throw new MinorException(I18N.getString("Themes.unsupportedTheme", t.getFullName(), ThemeAPI.VERSION.getText()));
                         }
 
                         if(!isDefaultThemePresent())

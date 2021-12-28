@@ -36,7 +36,7 @@ public class Theme
     private String fullName, shortName, author, website;
     private Version version, themePlatformVersion;
     private final File path;
-    private Document document;
+    private final Document document;
 
     public Theme(File path) throws MinorException
     {
