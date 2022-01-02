@@ -1,6 +1,6 @@
 /*
- * Stream-Pi - Free & Open-Source Modular Cross-Platform Programmable Macro Pad
- * Copyright (C) 2019-2021  Debayan Sutradhar (rnayabed),  Samuel Quiñones (SamuelQuinones)
+ * Stream-Pi - Free, Open-Source, Modular, Cross-Platform and Programmable Macro Pad
+ * Copyright (C) 2019-2022 Debayan Sutradhar (rnayabed),  Samuel Quiñones (SamuelQuinones)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Themes {
+public class Themes
+{
     private final List<Theme> themeList;
     private final ArrayList<MinorException> errors;
     private boolean isBadThemeTheCurrentOne = false;
@@ -62,7 +63,7 @@ public class Themes {
         return isDefaultThemePresent;
     }
 
-    private ArrayList<String> shortDir = null;
+    private ArrayList<String> shortDir;
 
     public void loadThemes(String themePath) throws SevereException
     {
